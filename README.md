@@ -1,4 +1,8 @@
-# Adaptive NEAT Engine 
+### ROADMAP
+- Enhance the system further by generating novel phenomena classes to test against.
+- Potentially (!!!) force a greater degree of topology growth via targeting the champion/winner algorithm's specific topological weaknesses.
+
+# Adaptive NEAT Engine (WIP)
 
 An advanced, multi-task neuroevolution engine built on top of `neat-python`. This system demonstrates how a neural network can dynamically evolve its physical topology or structure, as to adapt to fundamentally different, sequential challenges without suffering from catastrophic forgetting.
 
@@ -92,4 +96,4 @@ Once the engine finishes evolving, it automatically performs an **Immunity Verif
     Each row is a task mapped from red (vulnerable/unadapted) to green (fully adapted/immune). An efficient run shows that once a row turns green, it remains solid green throughout all subsequent generations—demonstrating complete immunity to catastrophic forgetting.
 
 
-roadmap: Adapt to adversial problems.
+
