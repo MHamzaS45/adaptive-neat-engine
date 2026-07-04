@@ -19,7 +19,7 @@ The engine exposes a population of networks to three categorically distinct "phe
 
 ## Code Architecture
 
-The project consists of the following modular components:
+The project largely consists of the following modular components:
 
 *   `adaptive_genome.py`: Subclasses `DefaultGenome` from `neat-python`. Implements a structural memory system (`adaptation_history`) that snapshots and registers exactly which new nodes or connections emerged during exposure to a specific phenomenon, ensuring they are preserved and merged during genetic crossover.
 *   `phenomena.py`: Defines the abstract `Phenomenon` base class and houses the three concrete challenge environments. Also contains the `PhenomenonRegistry` (the Wheel State tracker) which manages sequential exposure and tracks adaptation progress.
@@ -30,7 +30,7 @@ The project consists of the following modular components:
 
 ---
 
-## Installation & Windows Environment Setup
+## Installation & Environment Setup [WINDOWS]
 
 Since this project runs in a local Windows virtual environment, follow these steps to ensure clean environment execution and avoid Windows App Execution Alias conflicts.
 
@@ -43,13 +43,12 @@ Windows has a built-in shortcut that redirects default `python` commands to the 
 Open PowerShell or Command Prompt inside your project root folder and execute:
 
 ```bash
-# Create the virtual environment
+# setup + activate virtual environment
 python -m venv .venv
 
-# Activate the virtual environment
 .\.venv\Scripts\activate
 
-# Install all required libraries
+# install  required libraries mentioned in file
 pip install -r requirements.txt
 ```
 
