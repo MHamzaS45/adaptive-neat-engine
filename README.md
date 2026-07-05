@@ -34,12 +34,19 @@ The project largely consists of the following modular components:
 
 Since this project runs in a local Windows virtual environment, follow these steps to ensure clean environment execution and avoid Windows App Execution Alias conflicts.
 
-### 1. BEFORE YOU RUN!: Disable Windows App Store Execution Aliases
+### 1. Clone The Repository (obviously) 
+- Run the following in the CLI
+```bash
+git clone https://github.com/MHamzaS45/adaptive-neat-engine
+```
+OR Clone directly if using <b> Visual Studio Code-GitHub Tools Extension </b>
+
+### 2. BEFORE YOU RUN!: Disable Windows App Store Execution Aliases
 Windows has a built-in shortcut that redirects default `python` commands to the Microsoft Store. Disable this:
 1. Open **Settings > Apps > Advanced app settings > App execution aliases**.
 2. Find `python.exe` and `python3.exe` in the list and toggle them both to **OFF**.
 
-### 2. Set Up Virtual Environment & Dependencies
+### 3. Set Up Virtual Environment & Dependencies
 Open PowerShell or Command Prompt inside your project root folder and execute:
 
 ```bash
