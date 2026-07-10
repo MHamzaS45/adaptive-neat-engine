@@ -75,11 +75,11 @@ pop_size              = 150
 reset_on_extinction   = True
 
 [AdaptiveGenome]
-# Must be named [AdaptiveGenome] to map to our custom class!
+# Must alter [DefaultGenome] to [AdaptiveGenome] as to map to our custom class!
 feed_forward            = False
 initial_connection      = unconnected
 activation_options      = sigmoid tanh relu gauss sin abs
-# ... other standard NEAT configurations
+# ... other standard NEAT configurations follows
 ```
 
 ---
