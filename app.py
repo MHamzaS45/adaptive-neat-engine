@@ -2,7 +2,8 @@
 import streamlit as st
 import threading
 import time
-# Import your existing engine classes
+
+
 from wheel import AdaptationWheel
 
 st.title("Adaptive Neuroevolution Engine Dashboard")
@@ -15,6 +16,7 @@ if "latest_stats" not in st.session_state:
 
 # 2. Add control widgets
 pop_size = st.sidebar.slider("Population Size", 50, 300, 150)
+config_path = st.sidebar.text_input("Configuration Path", "config.yaml")
 
 # 3. Create a background execution trigger
 if st.button("Turn the Wheel"):
