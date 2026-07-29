@@ -1,7 +1,4 @@
-
+streamlit>=1.40.0
 neat-python>=0.92
 matplotlib>=3.7.0
-
-
-# Optional: For custom audio feedback when the engine adapts
 pygame>=2.5.0
