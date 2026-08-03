@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("🧠 Adaptive Neuroevolution Engine Dashboard")
+st.title("Adaptive Neuroevolution Engine Dashboard")
 
 # Session state variables
 if "wheel_running" not in st.session_state:
@@ -23,18 +23,11 @@ if "played_sound" not in st.session_state:
 
 # Dashboard layout
 st.sidebar.header("Engine Configuration")
-
-# Args in AdaptationWheel constructor (config_path, pop_size)
 config_path = st.sidebar.text_input(
     "NEAT Config",
-    value="config-feedforward.ini",   # change if yours differs
+    value="config-feedforward.ini",   
 )
-pop_size = st.sidebar.slider(
-    "Population Size",
-    50,
-    300,
-    150,
-)
+
 
 
 if st.button("Turn the Wheel"):
@@ -44,8 +37,7 @@ if st.button("Turn the Wheel"):
         or not st.session_state.thread.is_alive()
     ):
         wheel = AdaptationWheel(
-            config_path,
-            pop_size,
+            config_path
         )
 
 # Session state variables to persist across reruns
