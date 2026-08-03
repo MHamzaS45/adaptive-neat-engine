@@ -72,10 +72,8 @@ def main():
         symbol = "[IMMUNE]" if immune else "[VULNERABLE]"
         print(f"  {name}: {score:.4f} {symbol}")
     if all_immune:
-        pygame.mixer.music.play()
         print("\n>>> ALL PHENOMENA ADAPTED. THE WHEEL HAS TURNED. <<<")
-        while pygame.mixer.music.get_busy():
-            pygame.time.Clock().tick(10)
+       
     else:
         print("\n>>> ADAPTATION INCOMPLETE. MORE GENERATIONS REQUIRED. <<<")
 
