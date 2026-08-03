@@ -12,10 +12,8 @@ Main Script
 import os
 from wheel import AdaptationWheel
 from visualize import plot_topology_growth, plot_immunity_heatmap
-import pygame 
 
-pygame.mixer.init()
-pygame.mixer.music.load("sfx.mp3")
+
 
 
 def main():
