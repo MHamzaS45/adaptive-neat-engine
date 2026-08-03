@@ -1,45 +1,104 @@
-
 import streamlit as st
 import threading
 import time
-import os 
 
-from wheel import AdaptationWheel
+from wheelspin import AdaptationWheel
 
-st.title("Adaptive Neuroevolution Engine Dashboard")
+st.set_page_config(
+    page_title="Adaptive Neuroevolution Engine",
+    layout="wide",
+)
 
-# 1. Initialize persistent session state
+st.title("🧠 Adaptive Neuroevolution Engine Dashboard")
+
+# Session state variables
 if "wheel_running" not in st.session_state:
     st.session_state.wheel_running = False
-if "latest_stats" not in st.session_state:
-    st.session_state.latest_stats = []
+if "thread" not in st.session_state:
+    st.session_state.thread = None
+if "wheel" not in st.session_state:
+    st.session_state.wheel = None
+if "played_sound" not in st.session_state:
+    st.session_state.played_sound = False
 
-# 2. Add control widgets
-pop_size = st.sidebar.slider("Population Size", 50, 300, 150)
-config_path = st.sidebar.text_input("Configuration Path", "config.yaml")
+# Dashboard layout
+st.sidebar.header("Engine Configuration")
 
-# 3. Create a background execution trigger
+# Args in AdaptationWheel constructor (config_path, pop_size)
+config_path = st.sidebar.text_input(
+    "NEAT Config",
+    value="config-feedforward.ini",   # change if yours differs
+)
+pop_size = st.sidebar.slider(
+    "Population Size",
+    50,
+    300,
+    150,
+)
+
+
 if st.button("Turn the Wheel"):
-    if not st.session_state.wheel_running:
-        st.session_state.wheel_running = True
-        
-        # Instantiate your orchestrator
-        wheel = AdaptationWheel(config_path, pop_size=pop_size)
-        
-        # Start evolution in a non-blocking background thread
-        thread = threading.Thread(
-            target=wheel.run_full_adaptation, 
-            args=(st.session_state.latest_stats,)
-        )
-        thread.start()
 
-# 4. If running, enter a lightweight UI refresh loop
-if st.session_state.wheel_running:
-    
-    chart_placeholder = st.empty()
-    metric_placeholder = st.empty()
-    
-    while thread.is_alive():
-        # Update metrics, progress bars, and st.line_chart in the placeholder
-        chart_placeholder.line_chart(st.session_state.latest_stats)
-        time.sleep(0.5) # Prevent CPU thrashing on the web-server thread
+    if (
+        st.session_state.thread is None
+        or not st.session_state.thread.is_alive()
+    ):
+        wheel = AdaptationWheel(
+            config_path,
+            pop_size,
+        )
+
+# Session state variables to persist across reruns
+        st.session_state.wheel = wheel
+        st.session_state.thread = threading.Thread(target=wheel.run_full_adaptation,daemon=True,)
+        st.session_state.thread.start()
+        st.session_state.wheel_running = True
+        st.session_state.played_sound = False
+
+
+chart_placeholder = st.empty()
+status_placeholder = st.empty()
+
+thread = st.session_state.thread
+wheel = st.session_state.wheel
+
+if thread is not None:
+
+    if thread.is_alive():
+        status_placeholder.info("Evolution running...")
+        if (wheel is not None and len(wheel.topology_history) > 0):
+            fitness = [x["fitness"] for x in wheel.topology_history]
+            chart_placeholder.line_chart(fitness)
+        time.sleep(1)
+        st.rerun()
+
+    else:
+        status_placeholder.success("ADAPTATION COMPLETE")
+        if (wheel is not None and len(wheel.topology_history) > 0):
+            fitness = [
+                x["fitness"]
+                for x in wheel.topology_history
+            ]
+            chart_placeholder.line_chart(fitness)
+
+# Sound
+        if not st.session_state.played_sound:
+            try:
+                with open("sfx.mp3", "rb") as f:
+                    st.audio(
+                        f.read(),
+                        format="audio/mp3",
+                        autoplay=True,
+                    )
+            except FileNotFoundError:
+                st.warning("sfx.mp3 not found.")
+            st.session_state.played_sound = True
+
+
+if (wheel is not None and len(wheel.adaptation_log) > 0):
+    st.subheader("Adaptation Log")
+    st.dataframe(wheel.adaptation_log)
+
+if (wheel is not None and len(wheel.topology_history) > 0):
+    st.subheader("Topology History")
+    st.dataframe(wheel.topology_history)

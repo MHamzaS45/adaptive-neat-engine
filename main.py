@@ -10,13 +10,14 @@ Main Script
 """The Wheel Turns: Adaptive Neuroevolution Against Categorical Phenomena"""
 
 import os
-from wheel import AdaptationWheel
+from wheelspin import AdaptationWheel
 from visualize import plot_topology_growth, plot_immunity_heatmap
 
 
 
 
 def main():
+
     # Locate the NEAT config file relative to this script
     config_path = os.path.join(os.path.dirname(__file__), "neat_config.ini")
     print("=" * 60)
@@ -31,8 +32,8 @@ def main():
 
     # Run the full adaptation loop across all phenomena
     wheel = AdaptationWheel(config_path)
-    all_stats, immunity = wheel.run_full_adaptation()
 
+    all_stats, immunity = wheel.run_full_adaptation()
 
     # Generate visualization PNGs
     print(f"\n{'='*60}")

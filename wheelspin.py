@@ -14,8 +14,9 @@ class AdaptationWheel:
             neat.DefaultReproduction,
             neat.DefaultSpeciesSet,
             neat.DefaultStagnation,
-            config_path
+            config_path, 
         )
+        
         self.registry = PhenomenonRegistry()
         self.adaptation_log = []
         self.topology_history=[]
@@ -134,6 +135,6 @@ class AdaptationWheel:
              status = "IMMUNE" if score >= self.registry.adaptation_threshold else "VULNERABLE"
              print(f"  {name}: {score:.4f} [{status}]")
 
-             return all_stats, immunity
+            return all_stats, immunity
             
           
