@@ -1,7 +1,7 @@
 import streamlit as st
 import threading
 import time
-
+import os
 from wheelspin import AdaptationWheel
 
 st.set_page_config(
@@ -22,27 +22,18 @@ if "played_sound" not in st.session_state:
     st.session_state.played_sound = False
 
 # Dashboard layout
-st.sidebar.header("Engine Configuration")
-config_path = st.sidebar.text_input(
-    "NEAT Config",
-    value="config-feedforward.ini",   
-)
-
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+config_path = os.path.join(BASE_DIR, "neat_config.ini")
 
 if st.button("Turn the Wheel"):
-
-    if (
-        st.session_state.thread is None
-        or not st.session_state.thread.is_alive()
-    ):
-        wheel = AdaptationWheel(
-            config_path
-        )
+    if (st.session_state.thread is None or not st.session_state.thread.is_alive()):
+        wheel = AdaptationWheel(config_path)
 
 # Session state variables to persist across reruns
         st.session_state.wheel = wheel
-        st.session_state.thread = threading.Thread(target=wheel.run_full_adaptation,daemon=True,)
+        st.session_state.thread = threading.Thread(target=wheel.run_full_adaptation, 
+        daemon=True,)
+
         st.session_state.thread.start()
         st.session_state.wheel_running = True
         st.session_state.played_sound = False
