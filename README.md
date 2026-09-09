@@ -4,7 +4,9 @@
 
 # Adaptive NEAT Engine (WIP)
 
-An advanced, multi-task neuroevolution engine built on top of `neat-python`. This system demonstrates how a neural network can dynamically evolve its physical topology or structure, as to adapt to fundamentally different, sequential challenges without suffering from catastrophic forgetting.
+An advanced, multi-task neuroevolution engine built on top of `neat-python`. This system demonstrates how a neural network can dynamically evolve its physical topology or structure, as to adapt to fundamentally different, sequential challenges without suffering from catastrophic forgetting, as outlined in the
+<i> Evolving Neural Networks through Augmenting Topologies. Evolutionary Computation, 10(2), pp.99-127 . </i> 
+paper
 
 ## Core Concepts
 
